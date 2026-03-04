@@ -1,170 +1,215 @@
-# 👗 Student Fashion Preferences and Spending Analysis
+<h1 align="center">👗 Student Fashion Preferences & Spending Analysis</h1>
 
-A Business Analytics project that analyzes student fashion preferences, shopping behavior, and spending patterns using survey data collected from **5,006 respondents**.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python" />
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-orange?style=flat-square&logo=jupyter" />
+  <img src="https://img.shields.io/badge/scikit--learn-ML-green?style=flat-square&logo=scikit-learn" />
+  <img src="https://img.shields.io/badge/NLTK-NLP-yellow?style=flat-square" />
+  <img src="https://img.shields.io/badge/Responses-5006-red?style=flat-square" />
+</p>
+
+<p align="center">
+  A comprehensive Business Analytics project exploring student fashion preferences, shopping behavior, and spending patterns through survey data analysis, exploratory data analysis (EDA), NLP-based text mining, and machine learning classification.
+</p>
 
 ---
 
-## 📋 Project Overview
+## 📌 Table of Contents
 
-This project explores how students make fashion-related decisions — from clothing preferences and shopping methods to spending habits and trust factors. The analysis includes data preprocessing, exploratory data analysis (EDA), text mining on open-ended responses, and machine learning classification.
+- [Project Overview](#-project-overview)
+- [Repository Structure](#-repository-structure)
+- [Dataset Description](#-dataset-description)
+- [Methodology](#-methodology)
+- [Key Findings](#-key-findings)
+- [Technologies Used](#-technologies-used)
+- [How to Run](#-how-to-run)
+- [Author](#-author)
+
+---
+
+## � Project Overview
+
+This project investigates **how students make fashion-related decisions** — including what they wear, where they shop, how much they spend, and what factors influence their trust in fashion brands.
+
+The analysis pipeline covers:
+- **Data Preprocessing** – Cleaning, normalizing, and encoding survey data
+- **Exploratory Data Analysis (EDA)** – Visual insights into student behavior
+- **NLP & Text Mining** – Analyzing open-ended student feedback using TF-IDF and Word Cloud
+- **Machine Learning** – Classifying preferred shopping method using Multinomial Naive Bayes
 
 ---
 
 ## 📁 Repository Structure
 
 ```
-Business_Analytics_Project/
+Student-Fashion-Preferences-and-Spending-Analysis/
 │
-├── BA_Preprocessing_Project.ipynb          # Main Jupyter Notebook (analysis + ML)
-├── Student Fashion Preferences and
-│   Spending Analysis (Responses).xlsx      # Raw survey dataset (5006 responses)
-└── README.md                               # Project documentation
+├── BA_Preprocessing_Project.ipynb                          # Main Jupyter Notebook
+├── Student Fashion Preferences and Spending
+│   Analysis (Responses).xlsx                               # Raw survey dataset
+└── README.md                                               # Project documentation
 ```
 
 ---
 
-## 📊 Dataset
+## 📊 Dataset Description
 
-- **Source:** Google Forms Survey
-- **Total Responses:** 5,006
-- **Format:** Excel (`.xlsx`)
-- **Columns (18 total):**
+| Property | Details |
+|---|---|
+| **Source** | Google Forms Survey |
+| **Total Responses** | 5,006 |
+| **File Format** | Excel (`.xlsx`) |
+| **Total Columns** | 18 |
 
-| Column | Description |
-|--------|-------------|
-| Timestamp | Date and time of survey submission |
-| Gender | Respondent's gender |
-| Level of Study | Current academic level (B.Tech, MBA, Diploma, etc.) |
-| Clothing Preference | Most preferred clothing type |
-| College Wear | Preferred attire for college |
-| Uniform Policy | Whether college has a uniform policy |
-| Purchase Frequency | How often clothes are purchased |
-| Shopping Method | Online, Offline, or Both |
-| Shopping Preference Reasons | Reasons for choosing the shopping method |
-| Price Range | Preferred price per clothing item |
-| Average Spending | Yearly spending on clothes (₹) |
-| Discount Importance | Whether discounts influence purchase |
-| Shopping Confidence | Confidence in selecting clothes independently |
-| Regret Reason | Main reason for post-purchase regret |
-| Opinion Source | Whose opinion they take before buying |
-| Brand Trust Factor | What makes them trust a brand |
-| Brand Loyalty Factor | What would make them buy more frequently |
-| Open Feedback | Free-text fashion/shopping experience sharing |
+### Survey Columns
 
----
-
-## 🔍 Analysis Performed
-
-### 1. 🧹 Data Preprocessing
-- Loaded data from Excel using `pandas`
-- Cleaned column names (stripped whitespace, removed newline characters)
-- Dropped the `Timestamp` column
-- Handled missing values (filled open-text NaN with empty strings)
-- Standardized text: lowercased and stripped all string columns
-- Converted average spending values from text ranges to numeric midpoints
-
-### 2. 📈 Exploratory Data Analysis (EDA)
-Visualizations created using `matplotlib` and `seaborn`:
-- **Gender Distribution** – Count plot of male vs. female respondents
-- **Education Level Distribution** – Horizontal bar chart by study level
-- **Clothing Type Preference** – Most preferred fashion style
-- **Shopping Method Preference** – Online vs. Offline vs. Both
-- **Purchase Frequency** – How often students shop for clothes
-- **Price Range Preference** – Preferred spending per item
-- **Discount Importance** – Attitude toward discounts
-- **Spending Distribution** – Histogram of annual clothing expenditure
-- **Spending by Gender** – Box plot comparing spending across genders
-- **Spending vs. Price Range** – Box plot analysis
-- **Shopping Method vs. Gender** – Crosstab heatmap
-
-### 3. 🔗 Feature Correlation
-- One-hot encoding of categorical columns using `pd.get_dummies()`
-- Full correlation heatmap of encoded features
-
-### 4. 🧠 Text Mining (NLP)
-Applied on open-ended student feedback:
-- **Text Cleaning:** Lowercasing, removing special characters, stopword removal using `NLTK`, and lemmatization using `WordNetLemmatizer`
-- **TF-IDF Vectorization:** Extracted top features using `TfidfVectorizer` (max 500 features, uni+bigrams)
-- **Top Keywords Bar Chart:** Top 15 words in student fashion feedback
-- **Word Cloud:** Visual representation of feedback themes (`WordCloud`)
-
-### 5. 🤖 Machine Learning - Shopping Method Classifier
-- **Target Variable:** Shopping method preference (Online / Offline / Both)
-- **Features:** TF-IDF vectors from cleaned feedback text
-- **Model:** `MultinomialNB` (Naive Bayes)
-- **Train/Test Split:** 80/20 using `train_test_split`
-- **Evaluation Metrics:**
-  - Accuracy Score
-  - Confusion Matrix (with heatmap)
-  - Classification Report (precision, recall, F1-score)
-  - Top feature log probabilities
+| # | Column | Type | Description |
+|---|--------|------|-------------|
+| 1 | Timestamp | `datetime` | Date & time of submission |
+| 2 | Gender | `object` | Male / Female |
+| 3 | Level of Study | `object` | B.Tech, MBA, Diploma, MBBS, etc. |
+| 4 | Clothing Preference | `object` | Most preferred clothing type |
+| 5 | College Wear | `object` | What they prefer to wear for college |
+| 6 | Uniform Policy | `object` | Whether college enforces uniform |
+| 7 | Purchase Frequency | `object` | How often clothes are bought |
+| 8 | Shopping Method | `object` | Online / Offline / Both |
+| 9 | Shopping Preference Reason | `object` | Reason for chosen shopping method |
+| 10 | Price Range | `object` | Preferred price per clothing item |
+| 11 | Average Spending | `float64` | Annual clothing expenditure (₹) |
+| 12 | Discount Importance | `object` | Whether discounts influence decisions |
+| 13 | Shopping Confidence | `object` | Confidence in choosing without help |
+| 14 | Regret Reason | `object` | Main reason for post-purchase regret |
+| 15 | Opinion Source | `object` | Whose opinion they seek before buying |
+| 16 | Brand Trust Factor | `object` | What builds trust in a brand |
+| 17 | Brand Loyalty Factor | `object` | What increases brand purchase frequency |
+| 18 | Open Feedback | `object` | Free-text fashion/shopping experience |
 
 ---
 
-## 🗝️ Key Findings
+## 🧪 Methodology
 
-- **Casual wear** dominates student fashion preferences
-- **Combined Online + Offline shopping** is the most popular method
-- Most students spend **₹5,000 – ₹15,000 per year** on clothing
-- **Discounts significantly influence** purchasing decisions
-- **Reviews and brand reputation** are the top trust factors
-- Common post-purchase regrets: **poor fit, quality issues, product looks different from images**
-- Text analysis reveals: **price, quality, and fit** are the most frequently mentioned challenges
+### 1. Data Preprocessing
+- Loaded raw dataset from Excel using `pandas`
+- Cleaned column names — removed newline characters and extra whitespace
+- Dropped `Timestamp` column (not needed for analysis)
+- Filled missing values in the open-text feedback column with empty strings
+- Standardized all string columns: **lowercased + stripped whitespace**
+- Converted average spending from text bands (e.g., `"5000–10000"`) to numeric midpoints
+
+### 2. Exploratory Data Analysis (EDA)
+Produced the following visualizations using `matplotlib` and `seaborn`:
+
+| Plot | Insight |
+|------|---------|
+| Gender Distribution | Count of male vs. female respondents |
+| Education Level | Breakdown by academic program |
+| Clothing Type Preference | Most favoured fashion style |
+| Shopping Method | Online vs. Offline vs. Both |
+| Purchase Frequency | How often students buy clothes |
+| Price Range Preference | Budget preferences per item |
+| Discount Importance | Attitude toward promotional offers |
+| Spending Distribution | Histogram of annual clothing spend |
+| Spending by Gender | Box plot comparing gender spending |
+| Spending vs. Price Range | Box plot analysis |
+| Shopping Method vs. Gender | Crosstab heatmap |
+| Feature Correlation Heatmap | Correlation across all encoded features |
+
+### 3. Text Mining & NLP
+Applied on the open-ended feedback column:
+- **Text cleaning:** Lowercasing → special character removal → stopword filtering → lemmatization (`NLTK`)
+- **TF-IDF Vectorization:** Extracted up to 500 features using unigrams and bigrams
+- **Top Keywords Bar Chart:** Top 15 most significant terms in feedback
+- **Word Cloud:** Visual summary of common themes in student responses
+
+### 4. Machine Learning — Shopping Method Classifier
+| Step | Details |
+|------|---------|
+| **Target Variable** | Shopping method (Online / Offline / Both) |
+| **Feature Input** | TF-IDF vectors of cleaned text feedback |
+| **Algorithm** | Multinomial Naive Bayes (`MultinomialNB`) |
+| **Split** | 80% Train / 20% Test (`random_state=42`) |
+| **Evaluation** | Accuracy, Confusion Matrix, Classification Report |
 
 ---
 
-## 🛠️ Technologies & Libraries
+## 📌 Key Findings
 
-| Library | Purpose |
-|---------|---------|
-| `pandas` | Data loading and manipulation |
-| `numpy` | Numerical operations |
-| `matplotlib` | Data visualization |
-| `seaborn` | Statistical plots |
-| `nltk` | Natural language processing (stopwords, lemmatization) |
-| `sklearn` | TF-IDF, Naive Bayes, train-test split, metrics |
-| `wordcloud` | Word cloud generation |
+> Based on analysis of **5,006 survey responses** from students across multiple academic programs.
+
+- 👕 **Casual wear** is the most preferred clothing type among students
+- 🛒 **Combined Online + Offline shopping** is the most dominant shopping mode
+- 💸 Most students spend **₹5,000 – ₹15,000 per year** on clothing
+- 🏷️ **Discounts and offers** significantly influence purchase decisions
+- ⭐ **Reviews and brand reputation** are the top trust-building factors
+- 😟 Top post-purchase regrets: **poor fit**, **quality issues**, and **product looks different from images**
+- 📝 Text analysis highlights: **price, quality, and fit** are the most frequently raised challenges in student feedback
+
+---
+
+## 🛠️ Technologies Used
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| `pandas` | Latest | Data loading, manipulation, encoding |
+| `numpy` | Latest | Numerical computations |
+| `matplotlib` | Latest | Plotting and visualization |
+| `seaborn` | Latest | Statistical charts and heatmaps |
+| `nltk` | Latest | Stopword removal, lemmatization |
+| `scikit-learn` | Latest | TF-IDF, Naive Bayes, train-test split, metrics |
+| `wordcloud` | Latest | Word cloud generation |
+| `openpyxl` | Latest | Reading Excel files |
 
 ---
 
 ## ⚙️ How to Run
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/creatingMYworld/Student-Fashion-Preferences-and-Spending-Analysis.git
-   cd Student-Fashion-Preferences-and-Spending-Analysis
-   ```
+### Prerequisites
+Make sure you have **Python 3.x** and **Jupyter Notebook** installed.
 
-2. **Install required libraries:**
-   ```bash
-   pip install pandas numpy matplotlib seaborn scikit-learn nltk wordcloud openpyxl
-   ```
+### Step 1 — Clone the Repository
+```bash
+git clone https://github.com/creatingMYworld/Student-Fashion-Preferences-and-Spending-Analysis.git
+cd Student-Fashion-Preferences-and-Spending-Analysis
+```
 
-3. **Download NLTK resources** (first-time only):
-   ```python
-   import nltk
-   nltk.download('stopwords')
-   nltk.download('wordnet')
-   ```
+### Step 2 — Install Dependencies
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn nltk wordcloud openpyxl
+```
 
-4. **Open the notebook:**
-   ```bash
-   jupyter notebook BA_Preprocessing_Project.ipynb
-   ```
+### Step 3 — Download NLTK Resources *(first-time only)*
+```python
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
+```
 
-5. **Run all cells** from top to bottom.
+### Step 4 — Launch the Notebook
+```bash
+jupyter notebook BA_Preprocessing_Project.ipynb
+```
 
-> ⚠️ **Note:** The dataset file path in the notebook may need to be updated to match your local system. Look for the `pd.read_excel(...)` line and update the path accordingly.
+### Step 5 — Run All Cells
+Run all cells from top to bottom in order.
+
+> ⚠️ **Important:** Update the file path in `pd.read_excel(...)` to match your local system path for the dataset file.
 
 ---
 
 ## 👩‍💻 Author
 
-**Harini**  
-Business Analytics Project — Student Fashion Preferences Study
+**Harini**
+- 🎓 Business Analytics Project
+- 📁 GitHub: [@creatingMYworld](https://github.com/creatingMYworld)
 
 ---
 
 ## 📄 License
 
-This project is for academic/educational purposes only.
+This project is intended for **academic and educational purposes only**.
+
+---
+
+<p align="center">
+  ⭐ If you found this project helpful, consider giving it a star on GitHub!
+</p>
