@@ -27,7 +27,7 @@
 
 ---
 
-## � Project Overview
+## 🔍 Project Overview
 
 This project investigates **how students make fashion-related decisions** — including what they wear, where they shop, how much they spend, and what factors influence their trust in fashion brands.
 
