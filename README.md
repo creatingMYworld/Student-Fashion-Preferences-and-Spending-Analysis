@@ -147,6 +147,14 @@ Applied on the open-ended feedback column:
 
 ---
 
+## 🎯 Conclusion
+
+The analysis of 5,006 student responses reveals that fashion purchasing decisions are influenced by affordability, convenience, and peer influence. Casual clothing dominates student preferences, and students frequently rely on online platforms for variety and pricing benefits. Discounts and brand reputation strongly impact trust and purchase frequency.
+
+Text mining analysis shows that students commonly mention issues related to price, quality, and fit, highlighting areas where fashion retailers can improve customer satisfaction.
+
+---
+
 ## 🛠️ Technologies Used
 
 | Library | Version | Purpose |
