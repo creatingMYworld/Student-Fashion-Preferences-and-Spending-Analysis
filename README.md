@@ -210,8 +210,17 @@ Run all cells from top to bottom in order.
 We welcome contributions! Please follow these steps:
 1. **Fork** the repository.
 2. **Create a feature branch.**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 3. **Commit your changes.**
+   ```bash
+   git commit -m "Add some feature"
+   ```
 4. **Push to the branch.**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 5. **Submit a Pull Request.**
 
 ---
