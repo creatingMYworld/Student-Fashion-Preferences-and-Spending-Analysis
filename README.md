@@ -222,12 +222,3 @@ We welcome contributions! Please follow these steps:
    git push origin feature/your-feature-name
    ```
 5. **Submit a Pull Request.**
-
----
-
-## 📄 License
-
-This project is licensed under the **ISC License**. See the [LICENSE](LICENSE) file for details.
-
----
-<p align="center">⭐ If you found this project helpful, consider giving it a star on GitHub!</p>
