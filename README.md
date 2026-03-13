@@ -227,7 +227,7 @@ We welcome contributions! Please follow these steps:
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **ISC License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 <p align="center">⭐ If you found this project helpful, consider giving it a star on GitHub!</p>
