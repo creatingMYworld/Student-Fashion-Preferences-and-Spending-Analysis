@@ -2,38 +2,38 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Toolti
 import { confidenceData, regretReasonsData, opinionSourceData, brandTrustData, brandLoyaltyData } from "@/data/dashboardData";
 import SectionHeader from "./SectionHeader";
 
+const COLORS = ["#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444", "#10b981"];
+
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-card border border-border rounded-lg px-3 py-2 shadow-xl">
-        <p className="text-foreground font-semibold text-lg">{payload[0].payload.name}</p>
-        <p className="text-primary mono text-base font-bold">{payload[0].value.toLocaleString()}</p>
+      <div className="bg-background/95 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-xl border-border/50">
+        <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">{payload[0].payload.name}</p>
+        <p className="text-sm font-bold text-foreground">{payload[0].value.toLocaleString()}</p>
       </div>
     );
   }
   return null;
 };
 
-const COLORS = ["hsl(174, 72%, 50%)", "hsl(280, 60%, 55%)", "hsl(38, 92%, 60%)", "hsl(340, 70%, 55%)", "hsl(200, 80%, 55%)"];
-
 const BehaviorSection = () => (
-  <div>
-    <SectionHeader title="Consumer Psychology & Trust" subtitle="Confidence, regret, opinions, and brand trust factors" id="behavior" />
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div className="space-y-8 animate-in fade-in duration-700">
+    <SectionHeader title="Consumer Psychology & Trust" subtitle="Confidence, regret, and brand trust factors" id="behavior" />
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {/* Confidence */}
       <div className="dashboard-card">
-        <h3 className="text-xl font-bold text-muted-foreground mb-4">Shopping Confidence Level</h3>
-        <div className="space-y-4 mt-6">
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-8">Shopping Confidence</h3>
+        <div className="space-y-6 mt-4">
           {confidenceData.map((item, i) => {
             const pct = (item.value / 5006) * 100;
             return (
               <div key={i}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-foreground">{item.name}</span>
-                  <span className="mono text-primary">{pct.toFixed(0)}%</span>
+                <div className="flex justify-between text-xs font-bold mb-2">
+                  <span className="text-muted-foreground">{item.name}</span>
+                  <span className="text-foreground">{pct.toFixed(0)}%</span>
                 </div>
-                <div className="w-full h-3 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: COLORS[i] }} />
+                <div className="w-full h-2 rounded-full bg-accent/50 overflow-hidden">
+                  <div className="h-full rounded-full transition-all duration-1000 shadow-sm" style={{ width: `${pct}%`, background: COLORS[i % COLORS.length] }} />
                 </div>
               </div>
             );
@@ -43,16 +43,16 @@ const BehaviorSection = () => (
 
       {/* Regret Reasons */}
       <div className="dashboard-card">
-        <h3 className="text-xl font-bold text-muted-foreground mb-4">Reasons for Purchase Regret</h3>
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={regretReasonsData} layout="vertical" margin={{ left: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 14%, 18%)" horizontal={false} />
-            <XAxis type="number" tick={{ fill: "hsl(215, 12%, 55%)", fontSize: 16 }} />
-            <YAxis type="category" dataKey="name" tick={{ fill: "hsl(210, 20%, 85%)", fontSize: 16 }} width={160} />
-            <Tooltip content={<CustomTooltip />} />
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-8">Regret Drivers</h3>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={regretReasonsData} layout="vertical" margin={{ left: 10, right: 30 }}>
+            <CartesianGrid strokeDasharray="4 4" vertical={true} horizontal={false} stroke="currentColor" className="opacity-20" />
+            <XAxis type="number" tick={{ fontSize: 10, fontWeight: 500, fill: "currentColor" }} axisLine={false} tickLine={false} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fontWeight: 600, fill: "currentColor" }} width={140} axisLine={false} tickLine={false} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'currentColor', opacity: 0.05 }} />
             <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={18}>
               {regretReasonsData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i]} />
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
               ))}
             </Bar>
           </BarChart>
@@ -61,16 +61,16 @@ const BehaviorSection = () => (
 
       {/* Opinion Source */}
       <div className="dashboard-card">
-        <h3 className="text-xl font-bold text-muted-foreground mb-4">Whose Opinion Matters?</h3>
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={opinionSourceData} layout="vertical" margin={{ left: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 14%, 18%)" horizontal={false} />
-            <XAxis type="number" tick={{ fill: "hsl(215, 12%, 55%)", fontSize: 16 }} />
-            <YAxis type="category" dataKey="name" tick={{ fill: "hsl(210, 20%, 85%)", fontSize: 16 }} width={160} />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={20}>
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-8">Influence Sources</h3>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={opinionSourceData} layout="vertical" margin={{ left: 10, right: 30 }}>
+            <CartesianGrid strokeDasharray="4 4" vertical={true} horizontal={false} stroke="currentColor" className="opacity-20" />
+            <XAxis type="number" tick={{ fontSize: 10, fontWeight: 500, fill: "currentColor" }} axisLine={false} tickLine={false} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fontWeight: 600, fill: "currentColor" }} width={140} axisLine={false} tickLine={false} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'currentColor', opacity: 0.05 }} />
+            <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={18}>
               {opinionSourceData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i]} />
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
               ))}
             </Bar>
           </BarChart>
@@ -79,18 +79,18 @@ const BehaviorSection = () => (
 
       {/* Brand Trust */}
       <div className="dashboard-card">
-        <h3 className="text-xl font-bold text-muted-foreground mb-4">What Builds Brand Trust?</h3>
-        <div className="space-y-4 mt-6">
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-8">Trust Factors</h3>
+        <div className="space-y-6 mt-4">
           {brandTrustData.map((item, i) => {
             const pct = (item.value / 5006) * 100;
             return (
               <div key={i}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-foreground">{item.name}</span>
-                  <span className="mono text-primary">{item.value.toLocaleString()}</span>
+                <div className="flex justify-between text-xs font-bold mb-2">
+                  <span className="text-muted-foreground">{item.name}</span>
+                  <span className="text-foreground">{item.value.toLocaleString()}</span>
                 </div>
-                <div className="w-full h-3 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${pct}%`, background: COLORS[i] }} />
+                <div className="w-full h-2 rounded-full bg-accent/50 overflow-hidden">
+                  <div className="h-full rounded-full shadow-sm" style={{ width: `${pct}%`, background: COLORS[i % COLORS.length] }} />
                 </div>
               </div>
             );
@@ -99,17 +99,17 @@ const BehaviorSection = () => (
       </div>
 
       {/* Brand Loyalty */}
-      <div className="dashboard-card md:col-span-2">
-        <h3 className="text-xl font-bold text-muted-foreground mb-4">What Drives Brand Loyalty?</h3>
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={brandLoyaltyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 14%, 18%)" vertical={false} />
-            <XAxis dataKey="name" tick={{ fill: "hsl(210, 20%, 85%)", fontSize: 16 }} />
-            <YAxis tick={{ fill: "hsl(215, 12%, 55%)", fontSize: 16 }} />
-            <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={45}>
+      <div className="dashboard-card lg:col-span-2">
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-8">Loyalty Drivers</h3>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={brandLoyaltyData} margin={{ bottom: 10 }}>
+            <CartesianGrid strokeDasharray="4 4" horizontal vertical={false} stroke="currentColor" className="opacity-20" />
+            <XAxis dataKey="name" tick={{ fontSize: 12, fontWeight: 600, fill: "currentColor" }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 12, fontWeight: 600, fill: "currentColor" }} axisLine={false} tickLine={false} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'currentColor', opacity: 0.05 }} />
+            <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={36}>
               {brandLoyaltyData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i]} />
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
               ))}
             </Bar>
           </BarChart>
